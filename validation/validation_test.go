@@ -268,6 +268,30 @@ func TestMobile(t *testing.T) {
 	if !valid.Mobile("+8614700008888", "mobile").Ok {
 		t.Error("\"+8614700008888\" is a valid mobile phone number should be true")
 	}
+	if !valid.Mobile("17300008888", "mobile").Ok {
+		t.Error("\"17300008888\" is a valid mobile phone number should be true")
+	}
+	if !valid.Mobile("+8617100008888", "mobile").Ok {
+		t.Error("\"+8617100008888\" is a valid mobile phone number should be true")
+	}
+	if !valid.Mobile("8617500008888", "mobile").Ok {
+		t.Error("\"8617500008888\" is a valid mobile phone number should be true")
+	}
+	if valid.Mobile("8617400008888", "mobile").Ok {
+		t.Error("\"8617400008888\" is a valid mobile phone number should be false")
+	}
+	if !valid.Mobile("16200008888", "mobile").Ok {
+		t.Error("\"16200008888\" is a valid mobile phone number should be true")
+	}
+	if !valid.Mobile("16500008888", "mobile").Ok {
+		t.Error("\"16500008888\" is a valid mobile phone number should be true")
+	}
+	if !valid.Mobile("16600008888", "mobile").Ok {
+		t.Error("\"16600008888\" is a valid mobile phone number should be true")
+	}
+	if !valid.Mobile("16700008888", "mobile").Ok {
+		t.Error("\"16700008888\" is a valid mobile phone number should be true")
+	}
 }
 
 func TestTel(t *testing.T) {
@@ -453,7 +477,7 @@ func TestPointer(t *testing.T) {
 
 	u := User{
 		ReqEmail: nil,
-		Email:	  nil,
+		Email:    nil,
 	}
 
 	valid := Validation{}
@@ -468,7 +492,7 @@ func TestPointer(t *testing.T) {
 	validEmail := "a@a.com"
 	u = User{
 		ReqEmail: &validEmail,
-		Email:	  nil,
+		Email:    nil,
 	}
 
 	valid = Validation{RequiredFirst: true}
@@ -482,7 +506,7 @@ func TestPointer(t *testing.T) {
 
 	u = User{
 		ReqEmail: &validEmail,
-		Email:	  nil,
+		Email:    nil,
 	}
 
 	valid = Validation{}
@@ -497,7 +521,7 @@ func TestPointer(t *testing.T) {
 	invalidEmail := "a@a"
 	u = User{
 		ReqEmail: &validEmail,
-		Email:	  &invalidEmail,
+		Email:    &invalidEmail,
 	}
 
 	valid = Validation{RequiredFirst: true}
@@ -511,7 +535,7 @@ func TestPointer(t *testing.T) {
 
 	u = User{
 		ReqEmail: &validEmail,
-		Email:	  &invalidEmail,
+		Email:    &invalidEmail,
 	}
 
 	valid = Validation{}
@@ -524,19 +548,18 @@ func TestPointer(t *testing.T) {
 	}
 }
 
-
 func TestCanSkipAlso(t *testing.T) {
 	type User struct {
 		ID int
 
-		Email    	string `valid:"Email"`
-		ReqEmail 	string `valid:"Required;Email"`
-		MatchRange	int 	`valid:"Range(10, 20)"`
+		Email      string `valid:"Email"`
+		ReqEmail   string `valid:"Required;Email"`
+		MatchRange int    `valid:"Range(10, 20)"`
 	}
 
 	u := User{
-		ReqEmail: 	"a@a.com",
-		Email:    	"",
+		ReqEmail:   "a@a.com",
+		Email:      "",
 		MatchRange: 0,
 	}
 
@@ -560,4 +583,3 @@ func TestCanSkipAlso(t *testing.T) {
 	}
 
 }
-
